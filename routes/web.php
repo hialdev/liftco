@@ -20,7 +20,8 @@ use TCG\Voyager\Facades\Voyager;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
-Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/sewa-rental', [PageController::class, 'sewa'])->name('sewa');
+Route::post('/sewa-rental', [PageController::class, 'sewaReq'])->name('sewa.send');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'send'])->name('contact.send');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
@@ -33,15 +34,10 @@ Route::get('/news/category/{slug}', [NewsController::class, 'category'])->name('
 
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/product/brand/{slug}', [ProductController::class, 'brand'])->name('product.brand');
 Route::get('/product/category/{slug}', [ProductController::class, 'category'])->name('product.category');
-
-Route::get('/service', [ServiceController::class, 'index'])->name('service');
-Route::get('/service/{slug}', [ServiceController::class, 'show'])->name('service.show');
-Route::get('/service/category/{slug}', [ServiceController::class, 'category'])->name('service.category');
-
-Route::get('/sparepart', [SparepartController::class, 'index'])->name('sparepart');
-Route::get('/sparepart/{slug}', [SparepartController::class, 'show'])->name('sparepart.show');
-Route::get('/sparepart/category/{slug}', [SparepartController::class, 'category'])->name('sparepart.category');
+Route::get('/product/model/{slug}', [ProductController::class, 'model'])->name('product.model');
+Route::get('/product/type/{slug}', [ProductController::class, 'type'])->name('product.type');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

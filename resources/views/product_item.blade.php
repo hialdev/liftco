@@ -6,88 +6,88 @@
 @endsection
 
 @section('content')
+@include('section.hero')
+
 <section>
-    <div class="container py-5">
-        <div class="position-fixed bottom-0 end-0 start-0 p-3 d-flex align-items-center justify-content-center" style="z-index: 99;">
-            <a href="" class="btn btn-dark rounded-3 px-3">Pesan Sekarang</a>
-        </div>
+    <div class="container p-0">
         <div class="row">
-            <div class="col-12 mb-4">
-                <a href="{{route('product.category',$product->category->slug)}}" class="text-decoration-none text-secondary fw-semibold d-flex flex-wrap align-items-center gap-3">
-                    <span class="iconify" data-icon="pajamas:arrow-left"></span>
-                    <span class="text-danger fw-semibold">Product</span>/ <span class="text-danger fw-semibold">Category Name</span>/ <span class="text-secondary fw-semibold">Lorem ipsum dolor sit amet consectetur adipisicing elit</span>
-                </a>
-            </div>
-            <div class="col-12 col-lg-9">
-                <h1 class="text-capitalize">{{$product->title}}</h1>
-                <div class="d-flex align-items-center gap-2 text-warning my-4">
-                    <span class="iconify" data-icon="ph:star-fill"></span>
-                    <span class="iconify" data-icon="ph:star-fill"></span>
-                    <span class="iconify" data-icon="ph:star-fill"></span>
-                    <span class="iconify" data-icon="ph:star-fill"></span>
-                    <span class="iconify" data-icon="ph:star-fill"></span>
-                </div>
-                <div class="mb-4">
-                    <div class="owl-carousel item-carousel owl-theme">
-                        @forelse (json_decode($product->images, true) as $image)
-                        <img src="{{Voyager::image($image)}}" alt="Image {{$product->title}} Product" class="d-block rounded-4">
-                        @empty
-                        <img data-aos="fade-down" data-aos-delay="0" data-aos-duration="1000" src="{{Voyager::image($product->image)}}" alt="Img {{$product->title}}" class="rounded-4 d-block w-100 my-3" style="aspect-ratio:1/1">
-                        @endforelse
-                    </div>
-                    <div class="d-flex gap-3 my-4 align-items-center justify-content-between">
-                        <div class="prev-item cursor-pointer p-2 rounded-5 border border-2 border-dark d-flex align-items-center justify-content-center">
-                            <span class="iconify fs-2" data-icon="pajamas:arrow-left"></span>
+            <div class="col-12 col-lg-4 order-last order-lg-first">
+                <div class="p-5 h-100 bg-light">
+                    <form action="" class="w-100 mx-auto" style="max-width:40em">
+                        <div class="d-flex align-items-center gap-2 rounded-3">
+                            <input type="text" class="form-control w-full d-block" placeholder="Cari product">
+                            <button type="submit" class="btn btn-danger bg-liftco text-white "><span class="iconify" data-icon="akar-icons:search"></span></button>
                         </div>
-                        <div id="item-dots"></div>
-                        <div class="next-item cursor-pointer p-2 rounded-5 border border-2 border-dark d-flex align-items-center justify-content-center">
-                            <span class="iconify fs-2" data-icon="pajamas:long-arrow"></span>
-                        </div>
-                    </div>
-                </div>
-                <div data-aos="fade" data-aos-delay="0" data-aos-duration="1000" class="content">
-                    {!! $product->content !!}
+                    </form>
+                    @include('partials.product_sidebar')
+
                 </div>
             </div>
-            <div class="col-12 col-lg-3 p-4">
-                <h6>Category</h6>
-                <div class="mt-3 d-flex align-items-center gap-2 flex-wrap">
-                    <a href="{{route('product.category',$product->category->slug)}}" class="p-1 px-3 bg-danger bg-opacity-10 cursor-pointer d-block text-danger rounded-4 text-nowrap text-lowercase text-decoration-none">{{$product->category->name}}</a>
+            <div class="col-12 col-lg-8">
+                <div class="p-5">
+                    <h2 class="text-5xl font-semibold text-slate-900 my-4">Forklift Diesel Small</h2>
+                    <img src="/src/image/lift1.jpg" alt="Forklift Image" class="d-block w-100 rounded-3 mb-3">
+                    <h3>Isuzu C240 Engine</h3>
+
+                    <div class="content pt-3 border-top">
+                        <p>
+                            New H3 series is the key product which HELI blockbuster launches. Based on the
+                            high technology, mass manufacturing capability and experienced sales and
+                            services of HELI, new H series becomes a milestone of HELI’s products which fully
+                            consider the needs of market and customers.
+                        </p>
+                        <p>
+                            Improved performance, superior quality<br/>
+                            Vibration 20% reduced<br/>
+                            Noise 3dB reduced<br/>
+                            Workspace 45% increased<br/>
+                            Operator’s view 20% improved<br/>
+                            Working e"ciency 20% improved<br/>
+                            Loading capacity increased over 5%<br/>
+                            Stability 5% improved<br/>
+                            Reliability 40% improved<br/>
+                            Engine hood open angle increased to 80°<br/>
+                        </p>
+                    
+                        <h3>Forklift Specifications</h3>
+                        <table>
+                            <tr>
+                                <th>Specification</th>
+                                <th>Details</th>
+                            </tr>
+                            <tr>
+                                <td>Load Capacity</td>
+                                <td>Up to 5,000 pounds</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Lift Height</td>
+                                <td>15 feet</td>
+                            </tr>
+                            <tr>
+                                <td>Fuel Type</td>
+                                <td>Electric, Gas, Diesel</td>
+                            </tr>
+                            <tr>
+                                <td>Turning Radius</td>
+                                <td>Varies based on model</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class=" my-4 d-flex align-items-center justify-content-between">
+                        <a href="#link-to-catalog" class="text-decoration-none btn btn-outline-danger">Download Catalog</a>
+                        <a href="#link-to-chat-whatsapp" class="text-decoration-none btn btn-outline-danger">Request Detail and Price</a>
+                    </div>
+                    <div class="rounded-3 overflow-hidden">
+                        <iframe class="w-100" style="aspect-ratio:16/9;object-fit:cover" src="https://www.youtube.com/embed/bcbPfX2jetk?si=TzYkeX_eR6yC35-Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
                 </div>
-                @if (isset($banner))
-                <div data-aos="fade" data-aos-delay="0" data-aos-duration="1000" class="my-4 d-flex justify-content-center">
-                    <a href="{{$banner->link}}" class="d-block">
-                        <img src="{{Voyager::image($banner->image)}}" alt="{{$banner->title}} Banner" style="max-height: 20em;" class="rounded-3 w-100">
-                    </a>
-                </div>
-                @endif
             </div>
         </div>
     </div>
 </section>
-<section>
-    <div class="container py-5">
-        <div class="fs-2 fw-semibold">Product Recommended</div>
-        <div class="row mt-4">
-            @forelse ($suggests as $suggest)
-            <div data-aos="fade-down" data-aos-delay="300" data-aos-duration="1000" class="col-6 col-lg-4 col-xl-3">
-                <a href="{{route('product.show',$suggest->slug)}}" class="d-block mb-4 text-decoration-none text-dark">
-                    <img src="{{Voyager::image($suggest->image)}}" alt="Image {{$suggest->title}} Product" class="w-100" style="aspect-ratio:1/1">
-                    <h6 class="lc lc-3 mb-2 bg-dark text-white text-center py-2 px-3">{{$suggest->title}}</h6>
-                </a>
-            </div>
-            @empty
-            <div class="p-4 text-center">No Data</div>
-            @endforelse
-        </div>
-        <div class="d-flex align-items-center justify-content-center my-4">
-            <a href="{{route('product')}}" class="btn btn-outline-dark rounded-0 ">See More</a>
-        </div>
-    </div>
-</section>
 
-@include('partials.section',['code'=>'product-show'])
-
+@include('section.news')
 @endsection
 
 @section('beforebody')

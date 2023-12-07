@@ -1,98 +1,53 @@
 <header>
-    <div class="bg-dark text-white py-1">
+    <div class="shadow-lg py-2 md:py-3 menu-box px-3">
         <div class="container">
-            <div class="d-flex align-items-center justify-content-between gap-4">
-                <div class="d-none d-md-block"><marquee behavior="" direction="">{{setting('site.walk_text')}}</marquee></div>
-                <div class="d-flex items-center ms-auto">
-                    <a href="{{setting('site.gmap')}}" class="text-decoration-none d-flex text-white text-nowrap gap-2 align-items-center px-3 border-end">
-                        <span class="iconify" data-icon="fa-solid:map-marker-alt"></span>
-                        Office
-                    </a>
-                    <a href="{{'mailto:'.setting('site.mail')}}" class="text-decoration-none d-flex text-white text-nowrap gap-2 align-items-center px-3 border-end">
-                        <span class="iconify" data-icon="pajamas:mail"></span>
-                        Mail
-                    </a>
-                    <a href="{{'telp:'.setting('site.telp')}}" class="text-decoration-none d-flex text-white text-nowrap gap-2 align-items-center px-3 border-end">
-                        <span class="iconify" data-icon="teenyicons:phone-outline"></span>
-                        Telp
-                    </a>
-                    <div class="d-flex align-items-center gap-3 ms-3">
-                        @foreach ($sosmeds as $sosmed)
-                        <a href="{{$sosmed->link}}" class="text-decoration-none d-flex text-white align-items-center justify-content-center">
-                            <span class="iconify" data-icon="{{$sosmed->icon}}"></span>
-                        </a>
-                        @endforeach
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="shadow-lg py-2 md:py-3 menu-box">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-between gap-3 position-relative">
-                <a href="{{route('home')}}" class="d-block"><img src="{{Voyager::image(setting('site.logo'))}}" alt="Logo brand" style="width:100px;height:60px;"></a>
-                <nav class="d-flex align-items-center gap-5 menu">
-                    <div class="order-last order-md-first d-flex align-items-center border border-2 rounded-4 overflow-hidden">
-                        <input type="text" class="form-control border-0 w-100 outline-0 rounded-0" name="q" placeholder="Cari disini..">
-                        <button class="btn d-flex align-items-center justify-content-center bg-danger text-white rounded-0 h-100" style="padding: 0.55em;">
-                            <span class="iconify" data-icon="iconamoon:search"></span>
-                        </button>
-                    </div>
+            <div class="d-flex py-2 py-md-1 align-items-center justify-content-between gap-1 position-relative">
+                <a href="{{route('home')}}" class="d-block position-absolute top-0 bg-liftco p-3"><img src="{{Voyager::image(setting('site.logo')) !== '' ? '/src/image/logowhite.jpg' : '/src/image/logowhite.jpg'}}" alt="Logo brand" style="width:auto;height:40px;"></a>
+                <nav class="d-flex align-items-center gap-5 menu ms-auto">
+                    
                     <button class="btn p-0 d-flex align-items-center d-lg-none" id="menu-close">
                         <span class="iconify fs-2" data-icon="pajamas:long-arrow"></span>
                     </button>
-                    <a href="{{route('about')}}" class="{{ request()->is('about') ? 'active' : '' }} text-decoration-none">About</a>
-                    <a href="{{route('news')}}" class="{{ request()->is('news*') ? 'active' : '' }} text-decoration-none">News</a>
                     <div>
-                        <a href="#" id="menu-product-btn" class="text-decoration-none d-flex align-items-center gap-2 {{ request()->is('product*') ? 'active' : '' }}">Product <span class="iconify color-inherit" data-icon="icon-park-outline:down"></span>
+                        <a href="#" id="menu-product-btn" style="font-size:14px !important;" class="fs-6 text-decoration-none d-flex align-items-center gap-2 {{ request()->is('product*') ? 'active' : '' }}">Product <span class="iconify color-inherit" data-icon="icon-park-outline:down"></span>
                         </a>
                         <div style="width: 100%;display: none;" class="dropdown" id="menu-product-dropdown">
                             <ul class="list-unstyled bg-light p-3 rounded-4 row">
                                 <li class="col-12 mb-4">
                                     <div class="d-flex align-items-center gap-3">
-                                        <div class="fw-semibold fs-5 text-dark">Product</div>
-                                        <a href="{{route('product')}}" class="d-inline-flex p-2 px-3 align-items-center gap-3 text-decoration-none text-dark border border-dark ">Go to Product <span class="iconify" data-icon="pajamas:long-arrow"></span></a>
+                                        <div class="fw-semibold fs-5 text-dark">Brand Product</div>
                                     </div>
                                 </li>
-                                @forelse ($product_category as $category)
+                                @forelse ($brandsglobal as $brand)
                                 <li class="col-12 col-lg-3">
-                                    <a href="{{route('product.category',$category->slug)}}" class="d-flex gap-3 align-items-center text-decoration-none text-dark">
+                                    <a href="{{route('product.brand',$brand->title)}}" class="d-flex gap-3 align-items-center text-decoration-none text-dark">
                                         <div class="rounded-4 bg-white d-flex align-items-center justify-content-center p-3 p-lg-4 mb-2" style="height:6em;width:6em">
-                                            @if (isset($category->icon))
-                                            <span class="iconify fs-1" data-icon="{{$category->icon}}"></span>
-                                            @else
-                                            <img src="{{Voyager::image($category->image_icon)}}" alt="{{$category->name}} Category" class="d-block rounded-2" style="aspect-ratio:1/1;max-width: 4em;">
-                                            @endif
+                                            <img src="{{Voyager::image($brand->image)}}" alt="{{$brand->title}} Logo" class="d-block rounded-2" style="aspect-ratio:1/1;max-width: 4em;object-fit:contain">
                                         </div>
-                                        <h6>{{$category->name}}</h6>
+                                        <h6>{{$brand->title}}</h6>
                                     </a>
                                 </li>
                                 @empty
-                                <li class="p-4 col-12">No Data Category</li>
+                                <div>No Data</div>
                                 @endforelse
-                                <li class="col-12">
-                                    <div class="row mt-4">
-                                        @forelse ($products as $product)
-                                        <div data-aos="fade-down" data-aos-delay="50" data-aos-duration="1000" class="col-4 col-md-4 col-lg-2 mb-3">
-                                            <a href="{{route('product.show',$product->slug)}}" class="text-decoration-none d-block text-dark">
-                                                <img src="{{Voyager::image($product->image)}}" alt="Product {{$product->title}}" class="w-100 mb-3" style="aspect-ratio:1/1;object-position:cover;">
-                                                <h6 style="font-size: 12px;">{{$product->title}}</h6>
-                                            </a>
-                                        </div>
-                                        @empty
-                                        <div class="p-4 text-center">No Product Featured - Atur max 3 product menjadi featured</div>
-                                        @endforelse
-                                    </div>
+                                
+                                <li class="col-12 my-3">
+                                    <a href="{{route('product')}}" class="d-inline-flex p-2 px-3 align-items-center gap-3 text-decoration-none bg-liftco text-white rounded-5 ">See Products <span class="iconify" data-icon="pajamas:long-arrow"></span></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <a href="{{route('sparepart')}}" class="{{ request()->is('sparepart*') ? 'active' : '' }} text-decoration-none">Sparepart</a>
-                    <a href="{{route('service')}}" class="{{ request()->is('service*') ? 'active' : '' }} text-decoration-none">Service</a>
-                    <a href="{{route('contact')}}" class="{{ request()->is('contact') ? 'active' : '' }} text-decoration-none">Contact</a>
+                    <a href="{{route('sewa')}}" style="font-size:14px !important;" class="{{ request()->is('sewa-rental') ? 'active' : '' }} fs-6 text-decoration-none">Sewa / Rental</a>
+                    <a href="{{route('news')}}" style="font-size:14px !important;" class="{{ request()->is('news*') ? 'active' : '' }} fs-6 text-decoration-none">News</a>
+                    <a href="{{route('contact')}}" style="font-size:14px !important;" class="{{ request()->is('contact') ? 'active' : '' }} fs-6 text-decoration-none">Contact us & Branch</a>
+                    <div class="order-last d-flex align-items-center border border-2 rounded-4 overflow-hidden">
+                        <input type="text" class="form-control border-0 w-100 outline-0 rounded-0" name="q" placeholder="Cari disini..">
+                        <button class="btn d-flex align-items-center justify-content-center bg-danger text-white rounded-0 h-100" style="padding: 0.55em;">
+                            <span class="iconify" data-icon="iconamoon:search"></span>
+                        </button>
+                    </div>
                 </nav>
-                <button class="btn p-0 d-flex align-items-center d-lg-none" id="menu-open">
+                <button class="btn p-0 d-flex align-items-center d-lg-none ms-auto" id="menu-open">
                     <span class="iconify fs-2" data-icon="fluent:text-align-right-16-filled"></span>
                 </button>
             </div>

@@ -70,11 +70,58 @@ h1, h2, h3, h4, h5, h6 {
   color: inherit !important;
 }
 
+.btn.btn-danger {
+  background-color: #cc0001 !important;
+  color: white !important;
+}
+
+.btn.btn-outline-danger {
+  border-color: #cc0001 !important;
+  color: #cc0001 !important;
+}
+.btn.btn-outline-danger:hover {
+  background-color: #cc0001 !important;
+  color: white !important;
+}
+
 header {
   position: relative;
   z-index: 100;
   left: 0;
   right: 0;
+}
+
+.bg-liftco {
+  background-color: #cc0001 !important;
+}
+
+.text-liftco {
+  color: #cc0001 !important;
+}
+
+.content img {
+  width: 100%;
+  max-width: 40em;
+  border-radius: 15px;
+}
+.content table {
+  padding: 1em;
+  width: 100%;
+  border: 2px solid #cecece;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.content table tr {
+  padding: 1em;
+}
+.content table th {
+  padding: 1em;
+  background-color: #f7f7f7;
+  font-weight: 400;
+}
+.content table td {
+  padding: 1em;
+  border: 2px solid #f7f7f7;
 }
 
 .content img {
@@ -103,7 +150,7 @@ header {
   top: 0;
   right: 0;
   left: 0;
-  margin-top: 5em;
+  margin-top: 3.7em;
 }
 @media (max-width: 992px) {
   .menu {

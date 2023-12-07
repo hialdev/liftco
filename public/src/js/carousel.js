@@ -1,10 +1,17 @@
-$('.hero-carousel').owlCarousel({
+const hero = $('.hero-carousel');
+hero.owlCarousel({
     loop:true,
     margin:10,
     nav:false,
     items:1,
     dotsContainer:'#hero-dots',
     autoHeight:true
+})
+$('.next-hero').click(function() {
+    hero.trigger('next.owl.carousel');
+})
+$('.prev-hero').click(function() {
+    hero.trigger('prev.owl.carousel', [300]);
 })
 
 const item = $('.item-carousel');
@@ -23,25 +30,23 @@ $('.prev-item').click(function() {
     item.trigger('prev.owl.carousel', [300]);
 })
 
-$('.service-carousel').owlCarousel({
+$('.brand-carousel').owlCarousel({
     loop:true,
     margin:10,
     nav:false,
+    autoplay:true,
     responsive:{
         0:{
             items:2,
         },
-        360:{
-            items:2,
-        },
         720:{
-            items:2,
+            items:3,
         },
         930:{
-            items:3,
+            items:4,
         },
         1020:{
-            items:3,
+            items:4,
         }
     }
 })
@@ -54,9 +59,6 @@ $('.client-carousel').owlCarousel({
     responsive:{
         0:{
             items:2,
-        },
-        360:{
-            items:3,
         },
         720:{
             items:4,

@@ -20,11 +20,12 @@
                         </div>
                     </form>
                     @include('partials.product_sidebar')
+
                 </div>
             </div>
             <div class="col-12 col-lg-8">
                 <div class="p-5">
-                    <h2 class="text-5xl font-medium text-slate-900 my-4">Material Handling Equipment</h2>
+                    <h2 class="text-5xl font-medium text-slate-900 my-4">Forklift Diesel Small</h2>
                     <div class="content">
                         <p>
                             Material handling equipment (MHE) is mechanical equipment used for the

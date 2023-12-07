@@ -8,12 +8,12 @@
     @yield('seo')
     {{-- Favicon --}}
     <?php $admin_favicon = Voyager::setting('site.favicon', ''); ?>
-    @if($admin_favicon == '')
-        <link rel="shortcut icon" href="/src/img/logo1.png" type="image/x-icon" sizes="auto">
+    <link rel="shortcut icon" href="/src/image/favicon.jpg" type="image/x-icon" sizes="auto">
+    {{-- @if($admin_favicon == '')
     @else
         <link rel="shortcut icon" href="{{ Voyager::image($admin_favicon) }}" type="image/x-icon" sizes="auto">
     @endif
-    
+     --}}
     <!-- Animate on Scroll -->
     <link rel="stylesheet" href="/lib/aos/dist/aos.css" />
     <!-- Bootstrap 5 -->
@@ -28,17 +28,21 @@
     @yield('inhead')
 </head>
 <body>
-    @include('partials.header')
-    <main>
+    <div class="" style="background: url('/src/image/bg.jpg'); background-size:cover; background-repeat:no-repeat; overflow-x:hidden;">
+        <div class="container bg-white p-0">
+            @include('partials.header')
+            <main>
 
-        {{-- First Load Banner Modal --}}
-        @include('modals.firstload')
-        {{-- Contact Modal --}}
-        @include('modals.contact')
+                {{-- First Load Banner Modal --}}
+                @include('modals.firstload')
+                {{-- Contact Modal --}}
+                @include('modals.contact')
 
-        @yield('content')
-        
-    </main>
+                @yield('content')
+                
+            </main>
+        </div>
+    </div>
     @include('partials.footer')
     
 

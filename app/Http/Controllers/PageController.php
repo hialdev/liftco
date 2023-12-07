@@ -29,24 +29,22 @@ class PageController extends Controller
         $heros = HeroBanner::all();
         $products = Product::where('featured',1)->limit(3)->get();
         $categories = ProductCategory::all();
-        $services = Service::latest()->limit(5)->get();
-        $brands = Brand::all();
         $clients = Client::all();
         $news = News::latest()->limit(4)->get();
 
-        return view('index', compact('heros','news','products','brands','clients','categories','services','seo'));
+        return view('index', compact('heros','news','products','clients','categories','seo'));
     }
 
-    public function about(){
+    public function sewa(){
         $meta = Page::all()->keyBy('slug');
         $seo = (object)[
-            'title' => $meta->get('home')->meta_title ?? $meta->get('default')->meta_title,
-            'desc' => $meta->get('home')->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($meta->get('home')->image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $meta->get('home')->meta_keyword ?? $meta->get('default')->meta_keyword,
+            'title' => $meta->get('sewa')->meta_title ?? $meta->get('default')->meta_title,
+            'desc' => $meta->get('sewa')->meta_desc ?? $meta->get('default')->meta_desc,
+            // 'image' => Voyager::image($meta->get('sewa')->image) ?? (Voyager::image($meta->get('default')->image) ?? '/src/image/banner.jpg'),
+            'keyword' => $meta->get('sewa')->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
         
-        return view('about',compact('seo'));
+        return view('sewa',compact('seo'));
     }
 
     public function contact(){

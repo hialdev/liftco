@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
-$prm : '';
+$prm : #cc0001;
 $scn : '';
 $font1 : 'Poppins', sans-serif;
 $font2 : 'Poppins', sans-serif;
@@ -88,12 +88,61 @@ h1,h2,h3,h4,h5,h6{
 .iconify, * .iconify{
     color: inherit !important;
 }
-
+.btn.btn-danger{
+    background-color: $prm !important;
+    color: white !important;
+}
+.btn.btn-outline-danger{
+    border-color: $prm !important;
+    color: $prm !important;
+    &:hover{
+        background-color: $prm !important;
+        color: white !important;
+    }
+}
 header{
     position: relative;
     z-index: 100;
     left: 0;
     right: 0;
+}
+.bg-liftco{
+    background-color: $prm !important; 
+}
+.text-liftco{
+    color: $prm !important; 
+}
+
+.content{
+    img{
+        width: 100%;
+        max-width: 40em;
+        border-radius: 15px;
+    }
+    p{
+    }
+    ul{
+        
+    }
+    table{
+        padding: 1em;
+        width: 100%;
+        border: 2px solid #cecece;
+        border-radius: 20px;
+        overflow: hidden;
+        tr{
+            padding: 1em;
+        }
+        th{
+            padding: 1em;
+            background-color: #f7f7f7;
+            font-weight: 400;
+        }
+        td{
+            padding: 1em;
+            border: 2px solid #f7f7f7;
+        }
+    }
 }
 
 .content{
@@ -124,7 +173,7 @@ header{
         top: 0;
         right: 0;
         left: 0;
-        margin-top: 5em;
+        margin-top: 3.7em;
     }
     /* Extra small devices (phone) */
     @media (max-width: $md) {
