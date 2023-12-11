@@ -42,3 +42,10 @@ $(document).ready(function(){
         $(this).parents('.menu-3rd').find('.menu-last').toggle();
     })
 })
+
+const firstload = $('.modal-firstload');
+const closeFirstload = $('.close-firstload');
+
+closeFirstload.click(function(){
+    firstload.addClass('d-none');
+})

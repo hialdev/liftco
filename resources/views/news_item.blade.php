@@ -17,7 +17,7 @@
                     <span class="iconify" data-icon="mingcute:tag-line"></span>
                     <div class="d-flex align-items-center gap-2 flex-wrap tag-box">
                         @forelse ($news->categories as $category)
-                        <a href="{{route('news.category',$category->slug)}}" class="p-1 px-3 bg-light cursor-pointer d-block text-dark rounded-4 text-nowrap text-lowercase text-decoration-none">{{$category->name}}</a>
+                        <a href="{{route('news',['category'=>$category->slug])}}" class="p-1 px-3 bg-light cursor-pointer d-block text-dark rounded-4 text-nowrap text-lowercase text-decoration-none">{{$category->name}}</a>
                         @empty
                         <a href="#" class="p-1 px-3 bg-light cursor-pointer d-block text-dark rounded-4 text-nowrap text-lowercase text-decoration-none">Undefined</a>
                         @endforelse

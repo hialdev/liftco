@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Traits\Resizable;
 
-class HeroBanner extends Model
+class ProductType extends Model
 {
     use HasFactory;
-    use Resizable;
-    
-    protected $table = "hero_banner";
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id_product_type', 'id');
+    }
 }

@@ -14,12 +14,6 @@
         <div class="row">
             <div class="col-12 col-lg-4 order-last order-lg-first">
                 <div class="p-5 h-100 bg-light">
-                    <form action="" class="w-100 mx-auto" style="max-width:40em">
-                        <div class="d-flex align-items-center gap-2 rounded-3">
-                            <input type="text" class="form-control w-full d-block" placeholder="Cari product">
-                            <button type="submit" class="btn btn-danger bg-liftco text-white "><span class="iconify" data-icon="akar-icons:search"></span></button>
-                        </div>
-                    </form>
                     @include('partials.product_sidebar')
 
                 </div>

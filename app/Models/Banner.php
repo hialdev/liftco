@@ -9,10 +9,7 @@ use TCG\Voyager\Traits\Resizable;
 class Banner extends Model
 {
     use HasFactory;
+    use Resizable;
 
     protected $table = "banners";
-
-    public function news(){
-        return $this->belongsToMany(News::class,'pivot_news_banner','id_banner','id_news');
-    }
 }

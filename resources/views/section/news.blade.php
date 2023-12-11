@@ -4,10 +4,8 @@
             <span class="iconify" data-width="170" data-icon="material-symbols:forklift"></span>
         </div>
         <div class="position-relative">
-            <h2 class="mb-3">Update info dan berita terkini</h2>
-            <p>PT. Liftco Indo Perkasa adalah Agen dan Distributor ScissorLift, Reach Truck, dan stacker, perusahaan yang bergerak di bidang Material
-                Handling dan Maintenance Building Equip
-            </p>
+            <h2 class="mb-3">{{setting('typography.news_title')}}</h2>
+            <p>{{setting('typography.news_desc')}}</p>
             <div class="row mt-4">
                 @forelse ($newsglobal as $new)
                 <div data-aos="fade-down" data-aos-delay="300" data-aos-duration="1000" class="col-6 col-lg-4 col-xl-3">

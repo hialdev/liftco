@@ -11,9 +11,9 @@ use TCG\Voyager\Facades\Voyager;
 class NewsController extends Controller
 {
     public function index(Request $request) {
-        $orderBy = (string) $request->input('order', '0');
-        $limit = (int) $request->input('limit', '10');
+        $limit = 15;
         $search = $request->input('search', '');
+        $category = (string) $request->input('category', '');
         
         $meta = Page::all()->keyBy('slug');
         $seo = (object)[
@@ -29,19 +29,16 @@ class NewsController extends Controller
         if (!empty($search)) {
             $news->where('title', 'like', "%$search%");
         }
-    
-        // Lakukan pengurutan berdasarkan pilihan pengguna
-        if ($orderBy === '1') {
-            $news->orderBy('created_at', 'asc');
-        } else if($orderBy === '0'){
-            $news->orderBy('created_at', 'desc');
+        
+        $news->latest();
+        
+        if (!empty($category)){
+            $ctg = NewsCategory::where('slug',$category)->firstOrFail();
+            $news = $ctg->news();
         }
-    
         $news = $news->paginate($limit);
 
-        $tags = NewsCategory::all();
-        
-        return view('news', compact('seo','news', 'tags'));
+        return view('news', compact('seo','news', 'search', 'category'));
     }
 
     public function show($slug) {
@@ -75,44 +72,5 @@ class NewsController extends Controller
         return view('news_item', compact('seo','news','suggests'));
     }
 
-    public function category(Request $request, $slug) {
-        $category = NewsCategory::where('slug',$slug)->firstOrFail();
-        $meta = Page::all()->keyBy('slug');
-        $seo = (object)[
-            'title' => $category->name ?? $meta->get('default')->meta_title,
-            'desc' => $category->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($category->meta_image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $category->meta_keyword ?? $meta->get('default')->meta_keyword,
-        ];
-
-        $orderBy = (string) $request->input('order', '0');
-        $limit = (int) $request->input('limit', '10');
-        $search = $request->input('search', '');
-
-        $news = News::query();
     
-        // Lakukan filter berdasarkan kata kunci pencarian
-        if (!empty($search)) {
-            $news->where('title', 'like', "%$search%");
-        }
-    
-        // Lakukan pengurutan berdasarkan pilihan pengguna
-        if ($orderBy === '1') {
-            $news->orderBy('created_at', 'asc');
-        } else if($orderBy === '0'){
-            $news->orderBy('created_at', 'desc');
-        }
-
-        $news->whereHas('categories', function ($query) use ($slug) {
-        
-            $query->where('slug', $slug);
-
-        });
-
-        $news = $news->paginate($limit);
-
-        $tags = NewsCategory::all();
-        
-        return view('news_category', compact('seo','category','news', 'tags'));
-    }
 }

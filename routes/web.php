@@ -24,13 +24,13 @@ Route::get('/sewa-rental', [PageController::class, 'sewa'])->name('sewa');
 Route::post('/sewa-rental', [PageController::class, 'sewaReq'])->name('sewa.send');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'send'])->name('contact.send');
+Route::post('/search/{slug}', [PageController::class, 'search'])->name('search');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms-of-service', [PageController::class, 'tos'])->name('tos');
 
 
 Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
-Route::get('/news/category/{slug}', [NewsController::class, 'category'])->name('news.category');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');

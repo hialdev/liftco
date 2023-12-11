@@ -2,7 +2,7 @@
     <div class="shadow-lg py-2 md:py-3 menu-box px-3">
         <div class="container">
             <div class="d-flex py-2 py-md-1 align-items-center justify-content-between gap-1 position-relative">
-                <a href="{{route('home')}}" class="d-block position-absolute top-0 bg-liftco p-3"><img src="{{Voyager::image(setting('site.logo')) !== '' ? '/src/image/logowhite.jpg' : '/src/image/logowhite.jpg'}}" alt="Logo brand" style="width:auto;height:40px;"></a>
+                <a href="{{route('home')}}" class="d-block position-absolute top-0 bg-liftco p-3"><img src="{{ setting('site.logo') !== '' ? Voyager::image(setting('site.logo')) : '/src/image/logowhite.jpg'}}" alt="{{setting('site.title').' Logo'}}" style="width:auto;height:{{setting('site.logo_size')}}px;"></a>
                 <nav class="d-flex align-items-center gap-5 menu ms-auto">
                     
                     <button class="btn p-0 d-flex align-items-center d-lg-none" id="menu-close">

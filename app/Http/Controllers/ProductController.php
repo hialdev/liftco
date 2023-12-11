@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductModel;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 
@@ -21,7 +24,6 @@ class ProductController extends Controller
             'keyword' => $meta->get('product')->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        $categories = ProductCategory::all();
         $products = Product::query();
     
         // Lakukan filter berdasarkan kata kunci pencarian
@@ -29,9 +31,8 @@ class ProductController extends Controller
             $products->where('title', 'like', "%$search%");
         }
 
-        $products = $products->paginate(3);
-        // dd($products);
-        return view('product', compact('seo','products','categories'));
+        $products = $products->paginate(15);
+        return view('product', compact('seo','products','search'));
     }
 
     public function show($slug) {
@@ -44,144 +45,62 @@ class ProductController extends Controller
             'keyword' => $product->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        $suggests = [];
-        
-        $product_list1 = Product::latest()->limit(4)->get();
-        $product_list = ProductCategory::where('slug',$product->category->slug)->firstOrFail();
-        
-        foreach ($product_list->products as $product) {
-            if ($product->slug != $slug) {
-                array_push($suggests, $product);
-            }
-        }
-        
-        foreach ($product_list1 as $products1) {
-            if(count($suggests) < 4){
-                array_push($suggests,$products1);
-            }else{
-                break;
-            }
-        }
-
-        $page = Page::where('slug','product-show')->firstOrFail();
-        $banner = $page->banner;
-
-        return view('product_item', compact('seo','product','suggests','banner'));
+        return view('product_item', compact('seo','product'));
     }
 
-    public function brand(Request $request, $slug) {
-        $search = $request->input('search', '');
-        //$category = ProductCategory::where('slug',$slug)->firstOrFail();
-        
+    public function brand($slug) {
         $meta = Page::all()->keyBy('slug');
+        $brand = Brand::where('slug', $slug)->firstOrFail();
         $seo = (object)[
-            'title' => $meta->get('product')->meta_title ?? $meta->get('default')->meta_title,
-            'desc' => $meta->get('product')->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($meta->get('product')->image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $meta->get('product')->meta_keyword ?? $meta->get('default')->meta_keyword,
+            'title' => $brand->title ?? $meta->get('default')->meta_title,
+            'desc' => $brand->meta_desc ?? $meta->get('default')->meta_desc,
+            'image' => Voyager::image($brand->image) ?? Voyager::image($meta->get('default')->image),
+            'keyword' => $brand->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        // $categories = ProductCategory::all();
-        // $products = Product::query();
-    
-        // // Lakukan filter berdasarkan kata kunci pencarian
-        // if (!empty($search)) {
-        //     $products->where('title', 'like', "%$search%");
-        // }
 
-        // $products->whereHas('category', function ($query) use ($slug) {
-        //     $query->where('slug', $slug);
-        // });
-
-        // $products = $products->paginate(15);
-
-        return view('product_brand', compact('seo'));
+        return view('product_brand', compact('seo','brand'));
     }
 
-    public function category(Request $request, $slug) {
-        $search = $request->input('search', '');
-        //$category = ProductCategory::where('slug',$slug)->firstOrFail();
-        
+    public function category($slug) {
         $meta = Page::all()->keyBy('slug');
+        $category = ProductCategory::where('slug', $slug)->firstOrFail();
         $seo = (object)[
-            'title' => $meta->get('product')->meta_title ?? $meta->get('default')->meta_title,
-            'desc' => $meta->get('product')->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($meta->get('product')->image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $meta->get('product')->meta_keyword ?? $meta->get('default')->meta_keyword,
+            'title' => $category->title ?? $meta->get('default')->meta_title,
+            'desc' => $category->meta_desc  ?? $meta->get('default')->meta_desc,
+            'image' => Voyager::image($category->image) ?? Voyager::image($meta->get('default')->image),
+            'keyword' => $category->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        // $categories = ProductCategory::all();
-        // $products = Product::query();
-    
-        // // Lakukan filter berdasarkan kata kunci pencarian
-        // if (!empty($search)) {
-        //     $products->where('title', 'like', "%$search%");
-        // }
 
-        // $products->whereHas('category', function ($query) use ($slug) {
-        //     $query->where('slug', $slug);
-        // });
-
-        // $products = $products->paginate(15);
-
-        return view('product_category', compact('seo'));
+        return view('product_category', compact('seo','category'));
     }
 
-    public function model(Request $request, $slug) {
-        $search = $request->input('search', '');
-        //$category = ProductCategory::where('slug',$slug)->firstOrFail();
-        
+    public function model($slug) {
         $meta = Page::all()->keyBy('slug');
+        $model = ProductModel::where('slug', $slug)->firstOrFail();
         $seo = (object)[
-            'title' => $meta->get('product')->meta_title ?? $meta->get('default')->meta_title,
-            'desc' => $meta->get('product')->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($meta->get('product')->image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $meta->get('product')->meta_keyword ?? $meta->get('default')->meta_keyword,
+            'title' => $model->title ?? $meta->get('default')->meta_title,
+            'desc' => $model->meta_desc  ?? $meta->get('default')->meta_desc,
+            'image' => Voyager::image($model->image) ?? Voyager::image($meta->get('default')->image),
+            'keyword' => $model->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        // $categories = ProductCategory::all();
-        // $products = Product::query();
-    
-        // // Lakukan filter berdasarkan kata kunci pencarian
-        // if (!empty($search)) {
-        //     $products->where('title', 'like', "%$search%");
-        // }
 
-        // $products->whereHas('category', function ($query) use ($slug) {
-        //     $query->where('slug', $slug);
-        // });
-
-        // $products = $products->paginate(15);
-
-        return view('product_model', compact('seo'));
+        return view('product_model', compact('seo','model'));
     }
 
-    public function type(Request $request, $slug) {
-        $search = $request->input('search', '');
-        //$category = ProductCategory::where('slug',$slug)->firstOrFail();
-        
+    public function type($slug) {
+        $type = ProductType::where('slug', $slug)->firstOrFail();
         $meta = Page::all()->keyBy('slug');
         $seo = (object)[
-            'title' => $meta->get('product')->meta_title ?? $meta->get('default')->meta_title,
-            'desc' => $meta->get('product')->meta_desc ?? $meta->get('default')->meta_desc,
-            'image' => Voyager::image($meta->get('product')->image) ?? Voyager::image($meta->get('default')->image),
-            'keyword' => $meta->get('product')->meta_keyword ?? $meta->get('default')->meta_keyword,
+            'title' => $type->title ?? $meta->get('default')->meta_title,
+            'desc' => $type->meta_desc  ?? $meta->get('default')->meta_desc,
+            'image' => Voyager::image($type->image) ?? Voyager::image($meta->get('default')->image),
+            'keyword' => $type->meta_keyword ?? $meta->get('default')->meta_keyword,
         ];
 
-        // $categories = ProductCategory::all();
-        // $products = Product::query();
-    
-        // // Lakukan filter berdasarkan kata kunci pencarian
-        // if (!empty($search)) {
-        //     $products->where('title', 'like', "%$search%");
-        // }
 
-        // $products->whereHas('category', function ($query) use ($slug) {
-        //     $query->where('slug', $slug);
-        // });
-
-        // $products = $products->paginate(15);
-
-        return view('product_type', compact('seo'/*,'products','category', 'categories'*/));
+        return view('product_type', compact('seo','type'));
     }
 }

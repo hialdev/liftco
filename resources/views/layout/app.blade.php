@@ -33,8 +33,6 @@
             @include('partials.header')
             <main>
 
-                {{-- First Load Banner Modal --}}
-                @include('modals.firstload')
                 {{-- Contact Modal --}}
                 @include('modals.contact')
 

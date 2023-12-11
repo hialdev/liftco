@@ -1,12 +1,13 @@
 <section class="hero">
     <div class="position-relative">
         <div class="owl-carousel owl-theme hero-carousel">
-            <a href="" class="block position-relative">
-                <img src="/src/image/banner.jpg" alt="Banner Image" class="w-100" style="aspect-ratio:16/9 !important;object-fit:cover; object-position: left">
+            @forelse ($heros as $hero)
+            <a href="{{url($hero->link)}}" class="block position-relative">
+                <img src="{{Voyager::image($hero->image)}}" alt="{{$hero->title}}" class="w-100" style="aspect-ratio:16/9 !important;object-fit:cover; object-position: left">
             </a>
-            <a href="" class="block position-relative">
-                <img src="/src/image/banner2.jpg" alt="Banner Image" class="w-100" style="aspect-ratio:16/9 !important;object-fit:cover; object-position: left">
-            </a>  
+            @empty
+            <div></div>
+            @endforelse  
         </div>
         <div class="position-absolute bottom-0 start-0 end-0 p-2 p-md-5" style="z-index: 10;">
             <div class="d-flex justify-content-center">
