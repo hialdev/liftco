@@ -39,6 +39,6 @@ Route::get('/product/category/{slug}', [ProductController::class, 'category'])->
 Route::get('/product/model/{slug}', [ProductController::class, 'model'])->name('product.model');
 Route::get('/product/type/{slug}', [ProductController::class, 'type'])->name('product.type');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'bengkel'], function () {
     Voyager::routes();
 });
