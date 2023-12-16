@@ -144,7 +144,13 @@ return [
         ],
 
         'widgets' => [
-
+            'App\\Http\\Widgets\\ProductDimmer',
+            'App\\Http\\Widgets\\ProductBrandDimmer',
+            'App\\Http\\Widgets\\ClientDimmer',
+            'App\\Http\\Widgets\\BannerDimmer',
+            'App\\Http\\Widgets\\HeroBannerDimmer',
+            'App\\Http\\Widgets\\NewsDimmer',
+            'App\\Http\\Widgets\\MessageDimmer',
         ],
 
     ],
@@ -191,7 +197,7 @@ return [
     ],
 
     'additional_js' => [
-        //'js/custom.js',
+        '/src/js/footer.js',
     ],
 
     'googlemaps' => [

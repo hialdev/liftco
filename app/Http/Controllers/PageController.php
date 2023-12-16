@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Client;
 use App\Models\HeroBanner;
+use App\Models\Message;
 use App\Models\News;
 use App\Models\Office;
 use App\Models\Page;
@@ -18,6 +19,7 @@ use App\Models\Sosmed;
 use App\Models\Value;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
 use TCG\Voyager\Facades\Voyager;
 
 class PageController extends Controller
@@ -94,38 +96,62 @@ class PageController extends Controller
     // FORM Handling
 
     public function send(Request $req) {
-        $validate = $req->validate([
-            'name' => 'required|min:4|max:23',
-            'email' => 'required|email',
-            'no' => 'required|numeric',
-            'messages' => 'required'
-        ]);
+        try {
+            $validate = $req->validate([
+                'name' => 'required|min:4|max:23',
+                'email' => 'required|email',
+                'no' => 'required|numeric',
+                'messages' => 'required'
+            ]);
 
-        $mail = setting('site.mail');
-        Mail::to($mail)->send(new WebMail($validate));
-        
-        $wa = setting('site.wa');
-        $txt = "Hi%20DML%20%21%21%20saya%20".$req->get('name')."%20-%20dengan%20email%20".$req->get('email')."%20dan%20no%20telp%20".$req->get('no')."%0A%0A".$req->get('messages');
-        return redirect()->away("https://wa.me/$wa?text=$txt");
+            // Save to database
+            Message::create([
+                'name' => $validate['name'],
+                'email' => $validate['email'],
+                'no' => $validate['no'],
+                'message' => $validate['messages'],
+            ]);
+
+            $mail = setting('site.mail');
+            Mail::to($mail)->send(new WebMail($validate));
+            
+            $wa = setting('site.wa');
+            $txt = "Hi%20DML%20%21%21%20saya%20".$req->get('name')."%20-%20dengan%20email%20".$req->get('email')."%20dan%20no%20telp%20".$req->get('no')."%0A%0A".$req->get('messages');
+            return redirect()->away("https://wa.me/$wa?text=$txt");
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->errors())->withInput();
+        }
     }
 
     public function sewaReq(Request $req) {
-        $validate = $req->validate([
-            'name' => 'required|min:4|max:23',
-            'company' => 'required|min:3',
-            'email' => 'required|email',
-            'no' => 'required|numeric',
-            'needs' => 'required',
-            'spesification' => 'required',
-            'duration-start' => 'required',
-            'duration-end' => 'required'
-        ]);
+        try {
+            $validate = $req->validate([
+                'name' => 'required|min:4|max:23',
+                'company' => 'required|min:3',
+                'email' => 'required|email',
+                'no' => 'required|numeric',
+                'needs' => 'required',
+                'spesification' => 'required',
+                'duration-start' => 'required',
+                'duration-end' => 'required'
+            ]);
 
-        $mail = setting('site.mail');
-        Mail::to($mail)->send(new SewaMail($validate));
-        
-        $wa = setting('site.wa');
-        $txt = "Hi%20DML%20%21%21%20saya%20".$req->get('name')."%20-%20dengan%20email%20".$req->get('email')."%20dan%20no%20telp%20".$req->get('no')."%0A%0A".$req->get('spesification');
-        return redirect()->away("https://wa.me/$wa?text=$txt");
+            // Save to database
+            Message::create([
+                'name' => $validate['name'],
+                'email' => $validate['email'],
+                'no' => $validate['no'],
+                'message' => "Sewa & Rental Requested | " . $validate['spesification'],
+            ]);
+
+            $mail = setting('site.mail');
+            Mail::to($mail)->send(new SewaMail($validate));
+            
+            $wa = setting('site.wa');
+            $txt = "Hi%20DML%20%21%21%20saya%20".$req->get('name')."%20-%20dengan%20email%20".$req->get('email')."%20dan%20no%20telp%20".$req->get('no')."%0A%0A".$req->get('spesification');
+            return redirect()->away("https://wa.me/$wa?text=$txt");
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->errors())->withInput();
+        }
     }
 }

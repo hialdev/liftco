@@ -49,6 +49,15 @@
                 <form action="{{route('contact.send')}}" method="POST" class="mb-5">
                     @csrf
                     @method('POST')
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label for="name" class="mb-1">Nama</label>
                         <input type="text" name="name" placeholder="Nama Lengkap Anda" class="form-control bg-light" required>

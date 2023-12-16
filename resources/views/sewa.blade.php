@@ -16,6 +16,15 @@
         <div class="position-relative" style="z-index: 2">
             <h1 class="fs-2 mb-1">{{setting('typography.sewa_title')}}</h1>
             <p>{{setting('typography.sewa_desc')}}</p>
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{route('sewa.send')}}" method="POST" class="mx-auto p-4 border rounded-2 my-5" style="max-width: 40em">
                 @csrf
                 @method('POST')
