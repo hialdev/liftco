@@ -60,7 +60,6 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
             if (isset($this->options->watermark) && $this->options->watermark) {
                 $image->insert($this->getWatermarkImage($resize_width), 'center');
             }
-            dd($this->options->watermark);
 
             $image->encode($file_extension, $resize_quality);
 
@@ -176,7 +175,6 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
         if ($file_wm)
         {
             $watermark = $file_wm;
-            dd($watermark);
 
             // if watermark source file is exists, execute
             if (file_exists($watermark))
