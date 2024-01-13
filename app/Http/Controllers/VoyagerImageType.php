@@ -168,9 +168,9 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
 
     private function getWatermarkImage ($imageWidth)
     {
-        $scale = config('app.watermark.scale', 0.5);
+        $scale = setting('site.wm_scale') !== '' ? setting('site.wm_scale') : config('app.watermark.scale', 0.5) ;
         $width = intval($imageWidth * $scale);
-        $file_wm = Voyager::image(setting('site.watermark')) !== '' ? Voyager::image(setting('site.watermark')) : base_path().config('app.watermark.src');
+        $file_wm = Voyager::image(setting('site.watermark')) !== '' ? public_path('storage/'.setting('site.watermark')) : base_path().config('app.watermark.src');
         // check if watermark source is found.
         if ($file_wm)
         {
