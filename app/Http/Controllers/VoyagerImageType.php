@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image as InterventionImage;
+use TCG\Voyager\Facades\Voyager;
 
 class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
 {
@@ -59,6 +60,7 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
             if (isset($this->options->watermark) && $this->options->watermark) {
                 $image->insert($this->getWatermarkImage($resize_width), 'center');
             }
+            dd($this->options->watermark);
 
             $image->encode($file_extension, $resize_quality);
 
@@ -101,6 +103,7 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
                         if (isset($this->options->watermark) && $this->options->watermark) {
                             $image->insert($this->getWatermarkImage($thumb_resize_width), 'center');
                         }
+                        
 
                         $image->encode($file_extension, $resize_quality);
                     } elseif (isset($thumbnails->crop->width) && isset($thumbnails->crop->height)) {
@@ -168,11 +171,12 @@ class VoyagerImageType extends \TCG\Voyager\Http\Controllers\ContentTypes\Image
     {
         $scale = config('app.watermark.scale', 0.5);
         $width = intval($imageWidth * $scale);
-
+        $file_wm = Voyager::image(setting('site.watermark')) !== '' ? Voyager::image(setting('site.watermark')) : base_path().config('app.watermark.src');
         // check if watermark source is found.
-        if ($file_wm = config('app.watermark.src'))
+        if ($file_wm)
         {
-            $watermark = base_path().$file_wm;
+            $watermark = $file_wm;
+            dd($watermark);
 
             // if watermark source file is exists, execute
             if (file_exists($watermark))

@@ -14,7 +14,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'watermark' => [
+        'scale' => 0.5,
+        'src' => 'public/image/favicon.jpg'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Environment

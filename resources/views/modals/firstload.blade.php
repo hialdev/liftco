@@ -11,17 +11,6 @@
             <a href="https://wa.me/{{setting('site.whatsapp')}}" class="text-decoration-none d-block ">
                 <span style="width:70px;height:70px" class="iconify" data-icon="logos:whatsapp-icon"></span>
             </a>
-            <a href="https://t.me/{{setting('site.telegram')}}" class="text-decoration-none d-block ">
-                <span style="width:70px;height:70px" class="iconify" data-icon="logos:telegram"></span>
-            </a>
         </div>
-        <p>Anda juga bisa mengirimkan email kepada kami untuk pertanyaan-pertanyaan seputar
-            product dan services kami</p>
-        <div class="d-flex align-items-center gap-4 justify-content-center">
-            <a href="mailto:{{setting('site.mail')}}" class="text-decoration-none d-block rounded d-flex p-0 align-items-center justify-content-center ">
-                <span style="width:70px;height:70px" class="iconify" data-icon="fluent-emoji:e-mail"></span>
-            </a>
-        </div>
-
     </div>
 </div>
