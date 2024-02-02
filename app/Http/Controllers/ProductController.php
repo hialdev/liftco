@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\FeaturedCategory;
+use App\Models\FeaturedModel;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -65,6 +67,7 @@ class ProductController extends Controller
     public function category($slug) {
         $meta = Page::all()->keyBy('slug');
         $category = ProductCategory::where('slug', $slug)->firstOrFail();
+        $products = FeaturedCategory::where('id_category','=',$category->id)->first()->products ?? [];
         $seo = (object)[
             'title' => $category->title ?? $meta->get('default')->meta_title,
             'desc' => $category->meta_desc  ?? $meta->get('default')->meta_desc,
@@ -73,12 +76,13 @@ class ProductController extends Controller
         ];
 
 
-        return view('product_category', compact('seo','category'));
+        return view('product_category', compact('seo','category','products'));
     }
 
     public function model($slug) {
         $meta = Page::all()->keyBy('slug');
         $model = ProductModel::where('slug', $slug)->firstOrFail();
+        $products = FeaturedModel::where('id_model','=',$model->id)->first()->products ?? [];
         $seo = (object)[
             'title' => $model->title ?? $meta->get('default')->meta_title,
             'desc' => $model->meta_desc  ?? $meta->get('default')->meta_desc,
@@ -87,12 +91,13 @@ class ProductController extends Controller
         ];
 
 
-        return view('product_model', compact('seo','model'));
+        return view('product_model', compact('seo','model','products'));
     }
 
     public function type($slug) {
         $type = ProductType::where('slug', $slug)->firstOrFail();
         $meta = Page::all()->keyBy('slug');
+        $products = $type->products;
         $seo = (object)[
             'title' => $type->title ?? $meta->get('default')->meta_title,
             'desc' => $type->meta_desc  ?? $meta->get('default')->meta_desc,
@@ -101,6 +106,6 @@ class ProductController extends Controller
         ];
 
 
-        return view('product_type', compact('seo','type'));
+        return view('product_type', compact('seo','type','products'));
     }
 }
