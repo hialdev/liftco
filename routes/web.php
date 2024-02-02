@@ -26,7 +26,7 @@ Route::get('/sewa-rental', [PageController::class, 'sewa'])->name('sewa');
 Route::post('/sewa-rental', [PageController::class, 'sewaReq'])->name('sewa.send');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'send'])->name('contact.send');
-Route::post('/search/{slug}', [PageController::class, 'search'])->name('search');
+Route::get('/search', [PageController::class, 'search'])->name('search');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms-of-service', [PageController::class, 'tos'])->name('tos');
 

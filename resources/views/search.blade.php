@@ -6,14 +6,12 @@
 @endsection
 
 @section('content')
-<section>
+<section class="p-5">
     <div class="container py-5">
-        <h1 class="text-capitalize">Menampilkan Pencarian</h1>
-        <div class="d-flex justify-center">
-            <h2 class="d-inline-block p-1 px-2 text-liftco text-center">
-                "Kata Kunci Pencahariannya"
-            </h2>
-        </div>
+        <h1 class="text-capitalize text-center">Menampilkan Pencarian</h1>
+        <h2 class="d-block p-1 px-2 text-liftco text-center">
+            "{{$q}}"
+        </h2>
         <h3>Product</h3>
         <div class="p-1 bg-danger mb-3" style="width: 2em;"></div>
         <div class="row p-5">
@@ -30,7 +28,8 @@
             </div> 
             @endforelse
         </div>
-        <a href="{{route('product')}}" class="btn btn-outline-danger">Lihat Semua</a>
+        <a href="{{route('product','search='.$q)}}" class="btn btn-outline-danger">Lihat Semua</a>
+        <div class="pb-4 mb-4"></div>
         <h3>News</h3>
         <div class="p-1 bg-danger mb-3" style="width: 2em;"></div>
         <div class="row mt-4">
@@ -49,7 +48,7 @@
             <div class="p-4 text-center">No Data</div>
             @endforelse
         </div>
-        <a href="{{route('news')}}" class="btn btn-outline-danger">Lihat Semua</a>
+        <a href="{{route('news','search='.$q)}}" class="btn btn-outline-danger">Lihat Semua</a>
     </div>
 </section>
 

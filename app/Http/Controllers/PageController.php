@@ -154,4 +154,20 @@ class PageController extends Controller
             return redirect()->back()->withErrors($e->validator->errors())->withInput();
         }
     }
+
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $meta = Page::all()->keyBy('slug');
+        $seo = (object)[
+            'title' => `Mencari : $q - PT Liftco Indo Perkasi` ?? $meta->get('default')->meta_title,
+            'desc' => `menampilkan hasil dari pencarian $q pada news dan products` ?? $meta->get('default')->meta_desc,
+            'image' => Voyager::image($meta->get('default')->image),
+            'keyword' => $q.','.$meta->get('default')->meta_keyword,
+        ];
+        $products = Product::where('title', 'LIKE', '%' . $q . '%')->take(5)->get();
+        $news = News::where('title', 'LIKE', '%' . $q . '%')->take(5)->get();
+
+        return view('search', compact('seo','q','products', 'news'));
+    }
 }

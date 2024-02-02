@@ -40,12 +40,12 @@
                     <a href="{{route('sewa')}}" style="font-size:14px !important;" class="{{ request()->is('sewa-rental') ? 'active' : '' }} fs-6 text-decoration-none">Sewa / Rental</a>
                     <a href="{{route('news')}}" style="font-size:14px !important;" class="{{ request()->is('news*') ? 'active' : '' }} fs-6 text-decoration-none">News</a>
                     <a href="{{route('contact')}}" style="font-size:14px !important;" class="{{ request()->is('contact') ? 'active' : '' }} fs-6 text-decoration-none">Contact us</a>
-                    <div class="order-last d-flex align-items-center border border-2 rounded-4 overflow-hidden">
+                    <form method="GET" action="{{route('search')}}" class="order-last d-flex align-items-center border border-2 rounded-4 overflow-hidden">
                         <input type="text" class="form-control border-0 w-100 outline-0 rounded-0" name="q" placeholder="Cari disini..">
                         <button class="btn d-flex align-items-center justify-content-center bg-danger text-white rounded-0 h-100" style="padding: 0.55em;">
                             <span class="iconify" data-icon="iconamoon:search"></span>
                         </button>
-                    </div>
+                    </form>
                 </nav>
                 <button class="btn p-0 d-flex align-items-center d-lg-none ms-auto" id="menu-open">
                     <span class="iconify fs-2" data-icon="fluent:text-align-right-16-filled"></span>
